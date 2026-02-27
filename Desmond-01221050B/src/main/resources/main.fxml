@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.template.ui.mainController"
+            style="-fx-background-color: linear-gradient(to bottom, #1f2937, #111827);">
+
+    <!-- ===== HEADER ===== -->
+    <top>
+        <HBox alignment="CENTER_LEFT"
+              style="-fx-padding: 20;
+                     -fx-background-color: #0f172a;">
+
+            <Label text="University Student Portal"
+                   style="-fx-text-fill: #38bdf8;
+                          -fx-font-size: 24px;
+                          -fx-font-weight: bold;" />
+        </HBox>
+    </top>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <center>
+        <HBox spacing="25" style="-fx-padding: 20;">
+
+            <!-- ===== LEFT PANEL (FORM + BUTTONS) ===== -->
+            <VBox spacing="20"
+                  prefWidth="350"
+                  style="-fx-background-color: #1e293b;
+                         -fx-padding: 20;
+                         -fx-background-radius: 15;">
+
+                <Label text="Student Information"
+                       style="-fx-text-fill: #38bdf8;
+                              -fx-font-size: 18px;
+                              -fx-font-weight: bold;" />
+
+                <GridPane hgap="10" vgap="12">
+
+                    <Label text="Registration ID" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-text-fill: white;"/>
+                    <TextField fx:id="studentIdField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Student Name" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-text-fill: white;"/>
+                    <TextField fx:id="nameField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Course" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-text-fill: white;"/>
+                    <TextField fx:id="programmeField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                    <Label text="Year Level" GridPane.rowIndex="3" GridPane.columnIndex="0" style="-fx-text-fill: white;"/>
+                    <TextField fx:id="levelField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                    <Label text="Average Score" GridPane.rowIndex="4" GridPane.columnIndex="0" style="-fx-text-fill: white;"/>
+                    <TextField fx:id="gpaField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                    <Label text="Email Address" GridPane.rowIndex="5" GridPane.columnIndex="0" style="-fx-text-fill: white;"/>
+                    <TextField fx:id="emailField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                    <Label text="Contact Number" GridPane.rowIndex="6" GridPane.columnIndex="0" style="-fx-text-fill: white;"/>
+                    <TextField fx:id="phoneField" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+                    <Label text="Enrollment Status" GridPane.rowIndex="7" GridPane.columnIndex="0" style="-fx-text-fill: white;"/>
+                    <ComboBox fx:id="statusBox" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+
+                </GridPane>
+
+                <!-- BUTTONS VERTICAL -->
+                <VBox spacing="10" alignment="CENTER">
+
+                    <Button text="Save Record"
+                            onAction="#handleAddStudent"
+                            maxWidth="Infinity"
+                            style="-fx-background-color: #22c55e;
+                                   -fx-text-fill: black;
+                                   -fx-font-weight: bold;
+                                   -fx-background-radius: 12;" />
+
+                    <Button text="Modify Record"
+                            onAction="#handleEditStudent"
+                            maxWidth="Infinity"
+                            style="-fx-background-color: #facc15;
+                                   -fx-text-fill: black;
+                                   -fx-font-weight: bold;
+                                   -fx-background-radius: 12;" />
+
+                    <Button text="Remove Record"
+                            onAction="#handleDeleteStudent"
+                            maxWidth="Infinity"
+                            style="-fx-background-color: #ef4444;
+                                   -fx-text-fill: white;
+                                   -fx-font-weight: bold;
+                                   -fx-background-radius: 12;" />
+
+                    <Button text="Refresh List"
+                            onAction="#handleRefresh"
+                            maxWidth="Infinity"
+                            style="-fx-background-color: #3b82f6;
+                                   -fx-text-fill: white;
+                                   -fx-font-weight: bold;
+                                   -fx-background-radius: 12;" />
+
+                    <Button text="Generate Report"
+                            onAction="#handleOpenReportWindow"
+                            maxWidth="Infinity"
+                            style="-fx-background-color: #a855f7;
+                                   -fx-text-fill: white;
+                                   -fx-font-weight: bold;
+                                   -fx-background-radius: 12;" />
+
+                </VBox>
+
+            </VBox>
+
+            <!-- ===== RIGHT PANEL (TABLE + REPORT FILTERS) ===== -->
+            <VBox spacing="20"
+                  HBox.hgrow="ALWAYS"
+                  style="-fx-background-color: #1e293b;
+                         -fx-padding: 20;
+                         -fx-background-radius: 15;">
+
+                <Label text="Registered Students"
+                       style="-fx-font-size: 18px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #38bdf8;" />
+
+                <TableView fx:id="studentTable"
+                           VBox.vgrow="ALWAYS">
+
+                    <columns>
+                        <TableColumn fx:id="colId" text="Reg ID" prefWidth="100"/>
+                        <TableColumn fx:id="colName" text="Student Name" prefWidth="150"/>
+                        <TableColumn fx:id="colProgramme" text="Course" prefWidth="120"/>
+                        <TableColumn fx:id="colLevel" text="Year" prefWidth="80"/>
+                        <TableColumn fx:id="colGpa" text="Score" prefWidth="80"/>
+                        <TableColumn fx:id="colStatus" text="Status" prefWidth="100"/>
+                    </columns>
+
+                </TableView>
+
+                <!-- REPORT FILTERS -->
+                <HBox spacing="15" alignment="CENTER_LEFT">
+
+                    <Label text="Minimum Score:" style="-fx-text-fill: white;"/>
+                    <TextField fx:id="gpaThresholdField" prefWidth="100"/>
+
+                    <Label text="Order By:" style="-fx-text-fill: white;"/>
+
+                    <ComboBox fx:id="sortByComboBox" prefWidth="120">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Name"/>
+                                <String fx:value="GPA"/>
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+
+                    <Button text="Open Report"
+                            onAction="#handleOpenReportWindow"
+                            style="-fx-background-color: #06b6d4;
+                                   -fx-text-fill: black;
+                                   -fx-font-weight: bold;
+                                   -fx-background-radius: 12;" />
+                </HBox>
+
+            </VBox>
+
+        </HBox>
+    </center>
+
+</BorderPane>
